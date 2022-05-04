@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>B2C</label>
+    <protected>false</protected>
+    <values>
+        <field>Access_Token_URL__c</field>
+        <value xsi:type="xsd:string">https://account.demandware.com/dw/oauth2/access_token</value>
+    </values>
+    <values>
+        <field>Auth_Provider_Name__c</field>
+        <value xsi:type="xsd:string">B2C</value>
+    </values>
+    <values>
+        <field>Callback_URL__c</field>
+        <value xsi:type="xsd:string">https://YOUR_DOMAIN.my.salesforce.com/services/authcallback/B2C</value>
+    </values>
+    <values>
+        <field>Client_Id__c</field>
+        <value xsi:type="xsd:string">CLIENT_ID</value>
+    </values>
+    <values>
+        <field>Client_Secret__c</field>
+        <value xsi:type="xsd:string">CLIENT_SECRET</value>
+    </values>
+    <values>
+        <field>Scope__c</field>
+        <value xsi:type="xsd:string">SALESFORCE_COMMERCE_API:zzcu_XXX sfcc.customerlists.rw</value>
+    </values>
+    <values>
+        <field>Use_JSON_Encoding__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+</CustomMetadata>

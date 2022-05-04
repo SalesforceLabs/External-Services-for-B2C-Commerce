@@ -1,0 +1,917 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>B2CCommerceCustomer</label>
+    <namedCredential>B2C_Commerce_API</namedCredential>
+    <operations>
+        <active>true</active>
+        <name>createaddressforcustomerincustomerlist</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>createcustomerincustomerlist</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>createcustomerlist</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>deletecustomerfromcustomerlist</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>getaddressesforcustomerfromcustomerlist</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>getaddressforcustomerfromcustomerlist</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>getcustomerfromcustomerlist</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>removeaddressforcustomerincustomerlist</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>updateaddressforcustomerincustomerlist</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>updatecustomerincustomerlist</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>z0search</name>
+    </operations>
+    <registrationProviderType>Custom</registrationProviderType>
+    <schema>{
+  &quot;swagger&quot;: &quot;2.0&quot;,
+  &quot;info&quot;: {
+    &quot;title&quot;: &quot;Customers&quot;,
+    &quot;description&quot;: &quot;Contains endpoints for Customer Lists.&quot;,
+    &quot;version&quot;: &quot;v1&quot;
+  },
+  &quot;x-basePath&quot;: &quot;{shortCode}.api.commercecloud.salesforce.com/customer/customers/{version}&quot;,
+  &quot;schemes&quot;: [
+    &quot;https&quot;
+  ],
+  &quot;consumes&quot;: [
+    &quot;application/json&quot;
+  ],
+  &quot;produces&quot;: [
+    &quot;application/json&quot;
+  ],
+  &quot;definitions&quot;: {
+    &quot;Credentials&quot;: {
+      &quot;description&quot;: &quot;Document representing the credentials of a customer.&quot;,
+      &quot;properties&quot;: {
+        &quot;enabled&quot;: {
+          &quot;description&quot;: &quot;A flag indicating whether the customer is enabled and can log in.&quot;,
+          &quot;example&quot;: true,
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;locked&quot;: {
+          &quot;description&quot;: &quot;A flag indicating whether the customer account is locked.&quot;,
+          &quot;example&quot;: false,
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;login&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The login of the customer.&quot;,
+          &quot;example&quot;: &quot;rustin.peece&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;passwordQuestion&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The password question.&quot;,
+          &quot;example&quot;: &quot;Pet Name?&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;login&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;Customer&quot;: {
+      &quot;description&quot;: &quot;Person or entity who shops on Commerce Cloud storefronts by creating a shopper account in Commerce Cloud.&quot;,
+      &quot;properties&quot;: {
+        &quot;birthday&quot;: {
+          &quot;description&quot;: &quot;The customer&apos;s birthday.&quot;,
+          &quot;example&quot;: &quot;1999-12-31&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;format&quot;: &quot;date&quot;
+        },
+        &quot;companyName&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s company name.&quot;,
+          &quot;example&quot;: &quot;Acme&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;creationDate&quot;: {
+          &quot;description&quot;: &quot;Returns the value of attribute &apos;creationDate&apos;.&quot;,
+          &quot;example&quot;: &quot;9999-12-31T00:00:00.0Z&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;format&quot;: &quot;date-time&quot;
+        },
+        &quot;credentials&quot;: {
+          &quot;description&quot;: &quot;The customer&apos;s credentials.&quot;,
+          &quot;$ref&quot;: &quot;#/definitions/Credentials&quot;
+        },
+        &quot;customerId&quot;: {
+          &quot;maxLength&quot;: 28,
+          &quot;description&quot;: &quot;The customer&apos;s ID. Both registered and guest customers have a customer ID.&quot;,
+          &quot;example&quot;: &quot;rustin.peece&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;customerNo&quot;: {
+          &quot;maxLength&quot;: 100,
+          &quot;description&quot;: &quot;The customer&apos;s number.&quot;,
+          &quot;example&quot;: &quot;D100201&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;email&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s email address.&quot;,
+          &quot;example&quot;: &quot;rustin.peece@sample-email.com&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;fax&quot;: {
+          &quot;maxLength&quot;: 32,
+          &quot;description&quot;: &quot;The customer&apos;s fax number The length is restricted to 32 characters.&quot;,
+          &quot;example&quot;: &quot;555-555-5555&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;firstName&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s first name.&quot;,
+          &quot;example&quot;: &quot;Rustin&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;gender&quot;: {
+          &quot;format&quot;: &quot;int32&quot;,
+          &quot;description&quot;: &quot;The customer&apos;s gender.&quot;,
+          &quot;example&quot;: 1,
+          &quot;enum&quot;: [
+            1,
+            2
+          ],
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;jobTitle&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s job title.&quot;,
+          &quot;example&quot;: &quot;Batman&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;lastLoginTime&quot;: {
+          &quot;description&quot;: &quot;The last login time of the customer.&quot;,
+          &quot;example&quot;: &quot;9999-12-31T00:00:00.0Z&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;format&quot;: &quot;date-time&quot;
+        },
+        &quot;lastModified&quot;: {
+          &quot;description&quot;: &quot;Returns the value of attribute &apos;lastModified&apos;.&quot;,
+          &quot;example&quot;: &quot;9999-12-31T00:00:00.0Z&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;format&quot;: &quot;date-time&quot;
+        },
+        &quot;lastName&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s last name.&quot;,
+          &quot;example&quot;: &quot;Peece&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;lastVisitTime&quot;: {
+          &quot;description&quot;: &quot;The last visit time of the customer.&quot;,
+          &quot;example&quot;: &quot;9999-12-31T00:00:00.0Z&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;format&quot;: &quot;date-time&quot;
+        },
+        &quot;phoneBusiness&quot;: {
+          &quot;maxLength&quot;: 32,
+          &quot;description&quot;: &quot;The customer&apos;s business phone number.&quot;,
+          &quot;example&quot;: &quot;555-555-5555&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;phoneHome&quot;: {
+          &quot;maxLength&quot;: 32,
+          &quot;description&quot;: &quot;The customer&apos;s home phone number.&quot;,
+          &quot;example&quot;: &quot;555-555-5556&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;phoneMobile&quot;: {
+          &quot;maxLength&quot;: 32,
+          &quot;description&quot;: &quot;The customer&apos;s mobile phone number.&quot;,
+          &quot;example&quot;: &quot;555-555-5555&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;preferredLocale&quot;: {
+          &quot;description&quot;: &quot;The customer&apos;s preferred locale.&quot;,
+          &quot;example&quot;: &quot;en_US&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;previousLoginTime&quot;: {
+          &quot;description&quot;: &quot;The time when the customer previously logged in.&quot;,
+          &quot;example&quot;: &quot;9999-12-31T00:00:00.0Z&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;format&quot;: &quot;date-time&quot;
+        },
+        &quot;previousVisitTime&quot;: {
+          &quot;description&quot;: &quot;The time when the customer previously visited the store.&quot;,
+          &quot;example&quot;: &quot;9999-12-31T00:00:00.0Z&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;format&quot;: &quot;date-time&quot;
+        },
+        &quot;primaryAddress&quot;: {
+          &quot;description&quot;: &quot;The customers primary or default address.&quot;,
+          &quot;$ref&quot;: &quot;#/definitions/CustomerAddress&quot;
+        },
+        &quot;salutation&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s salutation.&quot;,
+          &quot;example&quot;: &quot;Mr.&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;secondName&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s second name.&quot;,
+          &quot;example&quot;: &quot;Peece&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;suffix&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s suffix (for example, \&quot;Jr.\&quot; or \&quot;Sr.\&quot;).&quot;,
+          &quot;example&quot;: &quot;Sr.&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;title&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s title (for example, \&quot;Mrs\&quot; or \&quot;Mr\&quot;).&quot;,
+          &quot;example&quot;: &quot;Mr.&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;customerNo&quot;,
+        &quot;lastName&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;CustomerAddress&quot;: {
+      &quot;description&quot;: &quot;Any address that is associated with a customer (billing, shipping, mailing, and so on).&quot;,
+      &quot;properties&quot;: {
+        &quot;address1&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s first address.&quot;,
+          &quot;example&quot;: &quot;10 Presidential Way&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;address2&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s second address value.&quot;,
+          &quot;example&quot;: &quot;Suite 100&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;addressId&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer address ID.&quot;,
+          &quot;example&quot;: &quot;Home&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;city&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s city.&quot;,
+          &quot;example&quot;: &quot;Gotham&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;companyName&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s company name.&quot;,
+          &quot;example&quot;: &quot;Acme&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;countryCode&quot;: {
+          &quot;pattern&quot;: &quot;^([A-Z][A-Z])$&quot;,
+          &quot;maxLength&quot;: 2,
+          &quot;description&quot;: &quot;The customer&apos;s two-character country code per ISO 3166-1 alpha-2.&quot;,
+          &quot;example&quot;: &quot;US&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;creationDate&quot;: {
+          &quot;description&quot;: &quot;Returns the value of attribute &apos;creationDate&apos;.&quot;,
+          &quot;example&quot;: &quot;9999-12-31T00:00:00.0Z&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;format&quot;: &quot;date-time&quot;
+        },
+        &quot;etag&quot;: {
+          &quot;description&quot;: &quot;The generated eTag representing the state of the customer address.&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;firstName&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s first name.&quot;,
+          &quot;example&quot;: &quot;Rustin&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;fullName&quot;: {
+          &quot;description&quot;: &quot;The concatenation of the customer&apos;s first, middle, last names, and suffix.&quot;,
+          &quot;example&quot;: &quot;Mr. Rustin Peece Sr.&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;jobTitle&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s job title.&quot;,
+          &quot;example&quot;: &quot;Batman&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;lastModified&quot;: {
+          &quot;description&quot;: &quot;Returns the value of attribute &apos;lastModified&apos;.&quot;,
+          &quot;example&quot;: &quot;9999-12-31T00:00:00.0Z&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;format&quot;: &quot;date-time&quot;
+        },
+        &quot;lastName&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s last name.&quot;,
+          &quot;example&quot;: &quot;Peece&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;phone&quot;: {
+          &quot;maxLength&quot;: 32,
+          &quot;description&quot;: &quot;The customer&apos;s phone number.&quot;,
+          &quot;example&quot;: &quot;555-555-5555&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;postBox&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s post box.&quot;,
+          &quot;example&quot;: &quot;A-12345&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;postalCode&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s postal code.&quot;,
+          &quot;example&quot;: &quot;12345&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;salutation&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s salutation.&quot;,
+          &quot;example&quot;: &quot;Mr.&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;secondName&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s second name.&quot;,
+          &quot;example&quot;: &quot;Peece&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;stateCode&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s state.&quot;,
+          &quot;example&quot;: &quot;NC&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;suffix&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s suffix.&quot;,
+          &quot;example&quot;: &quot;Sr.&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;suite&quot;: {
+          &quot;maxLength&quot;: 32,
+          &quot;description&quot;: &quot;The customer&apos;s suite.&quot;,
+          &quot;example&quot;: &quot;100&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;title&quot;: {
+          &quot;maxLength&quot;: 256,
+          &quot;description&quot;: &quot;The customer&apos;s title.&quot;,
+          &quot;example&quot;: &quot;Duke&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;addressId&quot;,
+        &quot;countryCode&quot;,
+        &quot;lastName&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;CustomerAddressResult&quot;: {
+      &quot;description&quot;: &quot;Result document containing an array of customer addresses.&quot;,
+      &quot;properties&quot;: {
+        &quot;limit&quot;: {
+          &quot;format&quot;: &quot;int32&quot;,
+          &quot;description&quot;: &quot;The number of returned documents.&quot;,
+          &quot;example&quot;: 10,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;data&quot;: {
+          &quot;description&quot;: &quot;The array of customer address documents.&quot;,
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/definitions/CustomerAddress&quot;
+          }
+        },
+        &quot;offset&quot;: {
+          &quot;minimum&quot;: 0,
+          &quot;format&quot;: &quot;int32&quot;,
+          &quot;description&quot;: &quot;The zero-based index of the first search hit to include in the result.&quot;,
+          &quot;example&quot;: 0,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;total&quot;: {
+          &quot;format&quot;: &quot;int32&quot;,
+          &quot;description&quot;: &quot;The total number of documents.&quot;,
+          &quot;example&quot;: 10,
+          &quot;type&quot;: &quot;integer&quot;
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;CustomerList&quot;: {
+      &quot;description&quot;: &quot;Document representing a customer list.&quot;,
+      &quot;properties&quot;: {
+        &quot;id&quot;: {
+          &quot;minLength&quot;: 1,
+          &quot;description&quot;: &quot;The ID of the customer list.&quot;,
+          &quot;example&quot;: &quot;Site1CustomerList&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;id&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;PaginatedSearchResult&quot;: {
+      &quot;description&quot;: &quot;Paginated Search Result&quot;,
+      &quot;properties&quot;: {
+        &quot;hits&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/definitions/CustomerSearchHit&quot;
+          }
+        },
+        &quot;query&quot;: {
+          &quot;$ref&quot;: &quot;#/definitions/Query&quot;
+        },
+        &quot;offset&quot;: {
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;total&quot;: {
+          &quot;type&quot;: &quot;integer&quot;
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;SearchRequest&quot;: {
+      &quot;description&quot;: &quot;Search Request&quot;,
+      &quot;properties&quot;: {
+        &quot;query&quot;: {
+          &quot;$ref&quot;: &quot;#/definitions/Query&quot;
+        },
+        &quot;offset&quot;: {
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;limit&quot;: {
+          &quot;type&quot;: &quot;integer&quot;
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;Query&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;textQuery&quot;: {
+          &quot;$ref&quot;: &quot;#/definitions/TextQuery&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;textQuery&quot;
+      ]
+    },
+    &quot;TextQuery&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;fields&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;searchPhrase&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;fields&quot;,
+        &quot;searchPhrase&quot;
+      ]
+    },
+    &quot;CustomerSearchHit&quot;: {
+      &quot;description&quot;: &quot;Document representing a customer search hit.&quot;,
+      &quot;properties&quot;: {
+        &quot;data&quot;: {
+          &quot;description&quot;: &quot;List of found customers.&quot;,
+          &quot;$ref&quot;: &quot;#/definitions/Customer&quot;
+        },
+        &quot;relevance&quot;: {
+          &quot;format&quot;: &quot;double&quot;,
+          &quot;description&quot;: &quot;The hit&apos;s relevance score.&quot;,
+          &quot;example&quot;: 1,
+          &quot;type&quot;: &quot;number&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;data&quot;,
+        &quot;relevance&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;CustomerSearchResult&quot;: {
+      &quot;description&quot;: &quot;Document representing a customer search result.&quot;,
+      &quot;$ref&quot;: &quot;#/definitions/PaginatedSearchResult&quot;
+    }
+  },
+  &quot;paths&quot;: {
+    &quot;/organizations/{organizationId}/customer-lists/{customerListId}/customer-search&quot;: {
+      &quot;post&quot;: {
+        &quot;description&quot;: &quot;Action to search for customers in a customer list&quot;,
+        &quot;operationId&quot;: &quot;search&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;examples&quot;: {
+              &quot;application/json&quot;: {
+                &quot;result&quot;: &quot;Can not resolve Examples/customerSearchResult.raml&quot;
+              }
+            },
+            &quot;schema&quot;: {
+              &quot;$ref&quot;: &quot;#/definitions/CustomerSearchResult&quot;
+            }
+          }
+        },
+        &quot;parameters&quot;: [
+          {
+            &quot;schema&quot;: {
+              &quot;$ref&quot;: &quot;#/definitions/SearchRequest&quot;
+            },
+            &quot;in&quot;: &quot;body&quot;,
+            &quot;name&quot;: &quot;body&quot;,
+            &quot;required&quot;: true
+          }
+        ]
+      },
+      &quot;parameters&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;customerListId&quot;,
+          &quot;required&quot;: true
+        },
+        {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;organizationId&quot;,
+          &quot;required&quot;: true
+        }
+      ]
+    },
+    &quot;/organizations/{organizationId}/customer-lists/{listId}/customers&quot;: {
+      &quot;post&quot;: {
+        &quot;description&quot;: &quot;Action to create a new customer. The customer is created using the specified credentials and customer information. This action verifies the following:    - Login acceptance criteria and uniqueness.   - Mandatory customer properties.  If the action fails to create the customer, it returns a 400 fault with an appropriate message. &quot;,
+        &quot;operationId&quot;: &quot;createCustomerList&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;examples&quot;: {
+              &quot;application/json&quot;: {
+                &quot;customers-result&quot;: &quot;Can not resolve Examples/post-customers.raml&quot;
+              }
+            },
+            &quot;schema&quot;: {
+              &quot;$ref&quot;: &quot;#/definitions/Customer&quot;
+            }
+          }
+        },
+        &quot;parameters&quot;: [
+          {
+            &quot;schema&quot;: {
+              &quot;example&quot;: {
+                &quot;body&quot;: &quot;Can not resolve Examples/post-customer-body.raml&quot;
+              },
+              &quot;$ref&quot;: &quot;#/definitions/Customer&quot;
+            },
+            &quot;in&quot;: &quot;body&quot;,
+            &quot;name&quot;: &quot;body&quot;,
+            &quot;required&quot;: true
+          }
+        ]
+      },
+      &quot;parameters&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;listId&quot;,
+          &quot;required&quot;: true
+        },
+        {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;organizationId&quot;,
+          &quot;required&quot;: true
+        }
+      ]
+    },
+    &quot;/organizations/{organizationId}/customer-lists/{listId}/customers/{customerNo}&quot;: {
+      &quot;delete&quot;: {
+        &quot;description&quot;: &quot;Deletes the customer, including all related information like the customer addresses.&quot;,
+        &quot;operationId&quot;: &quot;deleteCustomerFromCustomerList&quot;,
+        &quot;responses&quot;: {
+          &quot;204&quot;: {
+            &quot;description&quot;: &quot;No Content&quot;
+          }
+        }
+      },
+      &quot;get&quot;: {
+        &quot;description&quot;: &quot;Action to get customer information.&quot;,
+        &quot;operationId&quot;: &quot;getCustomerFromCustomerList&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;examples&quot;: {
+              &quot;application/json&quot;: {
+                &quot;get-customer&quot;: &quot;Can not resolve Examples/post-customers.raml&quot;
+              }
+            },
+            &quot;schema&quot;: {
+              &quot;$ref&quot;: &quot;#/definitions/Customer&quot;
+            }
+          }
+        }
+      },
+      &quot;patch&quot;: {
+        &quot;description&quot;: &quot;Updates the customer with the specified information. The customer number is allowed to be updated but results in a CustomerNumberAlreadyInUseException if there is another customer with the same customer number existing.&quot;,
+        &quot;operationId&quot;: &quot;updateCustomerInCustomerList&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;examples&quot;: {
+              &quot;application/json&quot;: {
+                &quot;patch-example&quot;: &quot;Can not resolve Examples/post-customers.raml&quot;
+              }
+            },
+            &quot;schema&quot;: {
+              &quot;$ref&quot;: &quot;#/definitions/Customer&quot;
+            }
+          }
+        },
+        &quot;parameters&quot;: [
+          {
+            &quot;schema&quot;: {
+              &quot;example&quot;: {
+                &quot;patch-body&quot;: &quot;Can not resolve Examples/post-customer-body.raml&quot;
+              },
+              &quot;$ref&quot;: &quot;#/definitions/Customer&quot;
+            },
+            &quot;in&quot;: &quot;body&quot;,
+            &quot;name&quot;: &quot;body&quot;,
+            &quot;required&quot;: true
+          }
+        ]
+      },
+      &quot;put&quot;: {
+        &quot;description&quot;: &quot;Action to create a new customer. The customer is created using the specified customer number, credentials, and customer information. This action verifies the following:  - Login acceptance criteria and uniqueness. - Mandatory customer properties.  If the action fails to create the customer, it returns a 400 fault with an appropriate message. &quot;,
+        &quot;operationId&quot;: &quot;createCustomerInCustomerList&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;examples&quot;: {
+              &quot;application/json&quot;: {
+                &quot;put-example&quot;: &quot;Can not resolve Examples/post-customers.raml&quot;
+              }
+            },
+            &quot;schema&quot;: {
+              &quot;$ref&quot;: &quot;#/definitions/Customer&quot;
+            }
+          },
+          &quot;201&quot;: {
+            &quot;description&quot;: &quot;Created&quot;,
+            &quot;examples&quot;: {
+              &quot;application/json&quot;: {
+                &quot;put-example&quot;: &quot;Can not resolve Examples/post-customers.raml&quot;
+              }
+            },
+            &quot;schema&quot;: {
+              &quot;$ref&quot;: &quot;#/definitions/Customer&quot;
+            }
+          }
+        },
+        &quot;parameters&quot;: [
+          {
+            &quot;schema&quot;: {
+              &quot;example&quot;: {
+                &quot;put-body&quot;: &quot;Can not resolve Examples/post-customer-body.raml&quot;
+              },
+              &quot;$ref&quot;: &quot;#/definitions/Customer&quot;
+            },
+            &quot;in&quot;: &quot;body&quot;,
+            &quot;name&quot;: &quot;body&quot;,
+            &quot;required&quot;: true
+          }
+        ]
+      },
+      &quot;parameters&quot;: [
+        {
+          &quot;minLength&quot;: 1,
+          &quot;description&quot;: &quot;The customer number.&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;customerNo&quot;,
+          &quot;required&quot;: true
+        },
+        {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;listId&quot;,
+          &quot;required&quot;: true
+        },
+        {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;organizationId&quot;,
+          &quot;required&quot;: true
+        }
+      ]
+    },
+    &quot;/organizations/{organizationId}/customer-lists/{listId}/customers/{customerNo}/addresses&quot;: {
+      &quot;get&quot;: {
+        &quot;description&quot;: &quot;Action that returns a pageable list of all customer addresses. The default page size is 10 customer addresses.&quot;,
+        &quot;operationId&quot;: &quot;getAddressesForCustomerFromCustomerList&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;examples&quot;: {
+              &quot;application/json&quot;: {
+                &quot;address-example&quot;: &quot;Can not resolve Examples/addresses-get.raml&quot;
+              }
+            },
+            &quot;schema&quot;: {
+              &quot;$ref&quot;: &quot;#/definitions/CustomerAddressResult&quot;
+            }
+          }
+        }
+      },
+      &quot;post&quot;: {
+        &quot;description&quot;: &quot;The action creates a new customer address with the given address information.&quot;,
+        &quot;operationId&quot;: &quot;createAddressForCustomerInCustomerList&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;examples&quot;: {
+              &quot;application/json&quot;: {
+                &quot;address-example&quot;: &quot;Can not resolve Examples/addresses-post.raml&quot;
+              }
+            },
+            &quot;schema&quot;: {
+              &quot;$ref&quot;: &quot;#/definitions/CustomerAddress&quot;
+            }
+          }
+        },
+        &quot;parameters&quot;: [
+          {
+            &quot;schema&quot;: {
+              &quot;example&quot;: {
+                &quot;address-body&quot;: &quot;Can not resolve Examples/addresses-body.raml&quot;
+              },
+              &quot;$ref&quot;: &quot;#/definitions/CustomerAddress&quot;
+            },
+            &quot;in&quot;: &quot;body&quot;,
+            &quot;name&quot;: &quot;body&quot;,
+            &quot;required&quot;: true
+          }
+        ]
+      },
+      &quot;parameters&quot;: [
+        {
+          &quot;minLength&quot;: 1,
+          &quot;description&quot;: &quot;The customer number.&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;customerNo&quot;,
+          &quot;required&quot;: true
+        },
+        {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;listId&quot;,
+          &quot;required&quot;: true
+        },
+        {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;organizationId&quot;,
+          &quot;required&quot;: true
+        }
+      ]
+    },
+    &quot;/organizations/{organizationId}/customer-lists/{listId}/customers/{customerNo}/addresses/{addressId}&quot;: {
+      &quot;get&quot;: {
+        &quot;description&quot;: &quot;Action that returns a single customer address from a customer list.&quot;,
+        &quot;operationId&quot;: &quot;getAddressForCustomerFromCustomerList&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;examples&quot;: {
+              &quot;application/json&quot;: {
+                &quot;address-example&quot;: &quot;Can not resolve Examples/address-get.raml&quot;
+              }
+            },
+            &quot;schema&quot;: {
+              &quot;$ref&quot;: &quot;#/definitions/CustomerAddress&quot;
+            }
+          }
+        }
+      },
+      &quot;delete&quot;: {
+        &quot;description&quot;: &quot;Action which deletes a customer address.&quot;,
+        &quot;operationId&quot;: &quot;removeAddressForCustomerInCustomerList&quot;,
+        &quot;responses&quot;: {
+          &quot;204&quot;: {
+            &quot;description&quot;: &quot;No Content&quot;
+          }
+        }
+      },
+      &quot;patch&quot;: {
+        &quot;description&quot;: &quot;Action which updates an address of a customer with the given address information.&quot;,
+        &quot;operationId&quot;: &quot;updateAddressForCustomerInCustomerList&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;examples&quot;: {
+              &quot;application/json&quot;: {
+                &quot;address&quot;: &quot;Can not resolve Examples/addresses-post.raml&quot;
+              }
+            },
+            &quot;schema&quot;: {
+              &quot;$ref&quot;: &quot;#/definitions/CustomerAddress&quot;
+            }
+          }
+        },
+        &quot;parameters&quot;: [
+          {
+            &quot;schema&quot;: {
+              &quot;example&quot;: {
+                &quot;address-body&quot;: &quot;Can not resolve Examples/addresses-body.raml&quot;
+              },
+              &quot;$ref&quot;: &quot;#/definitions/CustomerAddress&quot;
+            },
+            &quot;in&quot;: &quot;body&quot;,
+            &quot;name&quot;: &quot;body&quot;,
+            &quot;required&quot;: true
+          }
+        ]
+      },
+      &quot;parameters&quot;: [
+        {
+          &quot;minLength&quot;: 1,
+          &quot;description&quot;: &quot;The address ID.&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;addressId&quot;,
+          &quot;required&quot;: true
+        },
+        {
+          &quot;minLength&quot;: 1,
+          &quot;description&quot;: &quot;The customer number.&quot;,
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;customerNo&quot;,
+          &quot;required&quot;: true
+        },
+        {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;listId&quot;,
+          &quot;required&quot;: true
+        },
+        {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;in&quot;: &quot;path&quot;,
+          &quot;name&quot;: &quot;organizationId&quot;,
+          &quot;required&quot;: true
+        }
+      ]
+    }
+  }
+}</schema>
+    <schemaType>OpenApi</schemaType>
+    <serviceBinding>{&quot;compatibleMediaTypes&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+</ExternalServiceRegistration>
