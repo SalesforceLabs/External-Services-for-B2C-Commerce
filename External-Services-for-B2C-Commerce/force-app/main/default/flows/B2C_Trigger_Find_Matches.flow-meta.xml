@@ -1,8 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Search_B2C_Commerce</name>
+        <label>Search B2C Commerce</label>
+        <locationX>352</locationX>
+        <locationY>408</locationY>
+        <actionName>B2CCommerceCustomer.search</actionName>
+        <actionType>externalService</actionType>
+        <connector>
+            <targetReference>SearchResults_Loop</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>body</name>
+            <value>
+                <elementReference>SearchRequest</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>customerListId</name>
+            <value>
+                <elementReference>CustomerListId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>organizationId</name>
+            <value>
+                <elementReference>OrganizationId</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
     <apiVersion>54.0</apiVersion>
+    <assignments>
+        <name>SearchRequest_Assignment</name>
+        <label>SearchRequest Assignment</label>
+        <locationX>352</locationX>
+        <locationY>288</locationY>
+        <assignmentItems>
+            <assignToReference>SearchRequest.offset</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>SearchRequest.z0limit</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>SearchRequest.query.textQuery.fields</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Fields</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>SearchRequest.query.textQuery.searchPhrase</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SearchPhrase</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Search_B2C_Commerce</targetReference>
+        </connector>
+    </assignments>
     <interviewLabel>B2C: Trigger: Find Matches {!$Flow.CurrentDateTime}</interviewLabel>
+    <isTemplate>true</isTemplate>
     <label>B2C: Trigger: Find Matches</label>
+    <loops>
+        <name>SearchResults_Loop</name>
+        <label>SearchResults Loop</label>
+        <locationX>352</locationX>
+        <locationY>528</locationY>
+        <collectionReference>Search_B2C_Commerce.200.hits</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -22,47 +99,60 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <recordUpdates>
-        <name>Contact_UpdateRecord</name>
-        <label>Contact UpdateRecord</label>
-        <locationX>50</locationX>
-        <locationY>288</locationY>
-        <inputAssignments>
-            <field>B2C_Run_Matches__c</field>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </inputAssignments>
-        <inputReference>$Record</inputReference>
-    </recordUpdates>
     <start>
-        <locationX>56</locationX>
+        <locationX>50</locationX>
         <locationY>0</locationY>
-        <connector>
-            <targetReference>Contact_UpdateRecord</targetReference>
-        </connector>
-        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>B2C_Customer_Id__c</field>
-            <operator>IsNull</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
-        <filters>
-            <field>B2C_Run_Matches__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
         <object>Contact</object>
-        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <recordTriggerType>Create</recordTriggerType>
         <scheduledPaths>
+            <connector>
+                <targetReference>SearchRequest_Assignment</targetReference>
+            </connector>
             <pathType>AsyncAfterCommit</pathType>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
+    <variables>
+        <name>CustomerListId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>CUSTOMER_LIST_ID</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>Fields</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>OrganizationId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>ORGANIZATION_ID</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>SearchPhrase</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>SearchRequest</name>
+        <apexClass>ExternalService__B2CCommerceCustomer_SearchRequest</apexClass>
+        <dataType>Apex</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
 </Flow>
