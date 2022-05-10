@@ -4,7 +4,7 @@
         <name>Search_B2C_Commerce</name>
         <label>Search B2C Commerce</label>
         <locationX>352</locationX>
-        <locationY>408</locationY>
+        <locationY>528</locationY>
         <actionName>B2CCommerceCustomer.search</actionName>
         <actionType>externalService</actionType>
         <connector>
@@ -36,7 +36,7 @@
         <name>SearchRequest_Assignment</name>
         <label>SearchRequest Assignment</label>
         <locationX>352</locationX>
-        <locationY>288</locationY>
+        <locationY>408</locationY>
         <assignmentItems>
             <assignToReference>SearchRequest.offset</assignToReference>
             <operator>Assign</operator>
@@ -69,6 +69,29 @@
             <targetReference>Search_B2C_Commerce</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>SearchRequestData_Assignment</name>
+        <label>SearchRequestData Assignment</label>
+        <locationX>352</locationX>
+        <locationY>288</locationY>
+        <assignmentItems>
+            <assignToReference>Fields</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Email</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>SearchPhrase</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>SearchRequest_Assignment</targetReference>
+        </connector>
+    </assignments>
     <interviewLabel>B2C: Trigger: Find Matches {!$Flow.CurrentDateTime}</interviewLabel>
     <isTemplate>true</isTemplate>
     <label>B2C: Trigger: Find Matches</label>
@@ -76,7 +99,7 @@
         <name>SearchResults_Loop</name>
         <label>SearchResults Loop</label>
         <locationX>352</locationX>
-        <locationY>528</locationY>
+        <locationY>648</locationY>
         <collectionReference>Search_B2C_Commerce.200.hits</collectionReference>
         <iterationOrder>Asc</iterationOrder>
     </loops>
@@ -106,7 +129,7 @@
         <recordTriggerType>Create</recordTriggerType>
         <scheduledPaths>
             <connector>
-                <targetReference>SearchRequest_Assignment</targetReference>
+                <targetReference>SearchRequestData_Assignment</targetReference>
             </connector>
             <pathType>AsyncAfterCommit</pathType>
         </scheduledPaths>

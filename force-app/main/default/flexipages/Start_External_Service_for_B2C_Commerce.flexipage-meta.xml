@@ -9,22 +9,18 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>richTextValue</name>
-                    <value>&lt;p&gt;Setup External Services for B2C Commerce&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;Auth Provider&lt;/li&gt;&lt;li&gt;Named Credential&lt;/li&gt;&lt;li&gt;Update Flows as desired&lt;/li&gt;&lt;/ol&gt;</value>
+                    <value>&lt;p&gt;&lt;b&gt;Setup External Services for B2C Commerce&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;From B2C Commerce you will need&lt;ol&gt;&lt;li&gt;Client Id&lt;/li&gt;&lt;li&gt;Client Secret&lt;/li&gt;&lt;li&gt;Access Token Url&lt;/li&gt;&lt;li&gt;Short code&lt;/li&gt;&lt;/ol&gt;&lt;/li&gt;&lt;li&gt;Setup an &lt;a href=&quot;/lightning/setup/AuthProviders/home&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;b&gt;Auth Provider&lt;/b&gt;&lt;/a&gt;&lt;ol&gt;&lt;li&gt;Select B2CAuthProvider as Type&lt;/li&gt;&lt;li&gt;Name = B2C&lt;/li&gt;&lt;li&gt;URL Suffix = B2C&lt;/li&gt;&lt;li&gt;Access Token URL = https://account.demandware.com/dw/oauth2/access_token&lt;/li&gt;&lt;li&gt;Auth Provider Name = B2C&lt;/li&gt;&lt;li&gt;Callback Url = https://YOUR_DOMAIN.my.salesforce.com/services/authcallback/B2C&lt;/li&gt;&lt;li&gt;Client Id = YOUR_CLIENT_ID&lt;/li&gt;&lt;li&gt;Client Secret = YOUR_CLIENT_SECRET&lt;/li&gt;&lt;li&gt;Scope = SALESFORCE_COMMERCE_API:XXXX_XXX sfcc.customerlists.rw&lt;/li&gt;&lt;li&gt;Pick a user to execute as&lt;/li&gt;&lt;/ol&gt;&lt;/li&gt;&lt;li&gt;Setup a &lt;a href=&quot;/lightning/setup/NamedCredential/home&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;b&gt;Named Credential &lt;/b&gt;&lt;/a&gt;referencing Auth Provider&lt;ol&gt;&lt;li&gt;Label = B2C Commerce API&lt;/li&gt;&lt;li&gt;Name = B2C_Commerce_API&lt;/li&gt;&lt;li&gt;URL = https://{shortcode}.api.commercecloud.salesforce.com/customer/customers/v1&lt;/li&gt;&lt;li&gt;Identity Type = Per User&lt;/li&gt;&lt;li&gt;Authentication Protocol = Oauth 2.0&lt;/li&gt;&lt;li&gt;Authentication Provider = What you created in step 2&lt;/li&gt;&lt;li&gt;Scope = SALESFORCE_COMMERCE_API:XXXX_XXX sfcc.customerlists sfcc.customerlists.rw&lt;/li&gt;&lt;li&gt;Generate Authorization Header is checked&lt;/li&gt;&lt;/ol&gt;&lt;/li&gt;&lt;li&gt;Check that the &lt;a href=&quot;/lightning/setup/ExternalServices/home&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;b&gt;External Service&lt;/b&gt;&lt;/a&gt; is referencing Named Credential&lt;/li&gt;&lt;li&gt;Update or create Flows using external service actions as desired. Included is a Contact Trigger to search B2C Commerce for matching customers.&lt;/li&gt;&lt;/ol&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText1</identifier>
             </componentInstance>
         </itemInstances>
-        <name>column1</name>
-        <type>Region</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <name>column2</name>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Start External Service for B2C Commerce</masterLabel>
     <template>
-        <name>flexipage:appHomeTemplateTwoColumns</name>
+        <name>flexipage:defaultAppHomeTemplate</name>
     </template>
     <type>AppPage</type>
 </FlexiPage>
