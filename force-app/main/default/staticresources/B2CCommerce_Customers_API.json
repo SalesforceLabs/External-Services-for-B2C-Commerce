@@ -1,0 +1,864 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Customers",
+    "description": "Contains endpoints for Customer Lists.",
+    "version": "v1"
+  },
+  "x-basePath": "{shortCode}.api.commercecloud.salesforce.com/customer/customers/{version}",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "definitions": {
+    "Credentials": {
+      "description": "Document representing the credentials of a customer.",
+      "properties": {
+        "enabled": {
+          "description": "A flag indicating whether the customer is enabled and can log in.",
+          "example": true,
+          "type": "boolean"
+        },
+        "locked": {
+          "description": "A flag indicating whether the customer account is locked.",
+          "example": false,
+          "type": "boolean"
+        },
+        "login": {
+          "maxLength": 256,
+          "description": "The login of the customer.",
+          "example": "rustin.peece",
+          "type": "string"
+        },
+        "passwordQuestion": {
+          "maxLength": 256,
+          "description": "The password question.",
+          "example": "Pet Name?",
+          "type": "string"
+        }
+      },
+      "required": [
+        "login"
+      ],
+      "type": "object"
+    },
+    "Customer": {
+      "description": "Person or entity who shops on Commerce Cloud storefronts by creating a shopper account in Commerce Cloud.",
+      "properties": {
+        "birthday": {
+          "description": "The customer's birthday.",
+          "example": "1999-12-31",
+          "type": "string",
+          "format": "date"
+        },
+        "companyName": {
+          "maxLength": 256,
+          "description": "The customer's company name.",
+          "example": "Acme",
+          "type": "string"
+        },
+        "creationDate": {
+          "description": "Returns the value of attribute 'creationDate'.",
+          "example": "9999-12-31T00:00:00.0Z",
+          "type": "string",
+          "format": "date-time"
+        },
+        "credentials": {
+          "description": "The customer's credentials.",
+          "$ref": "#/definitions/Credentials"
+        },
+        "customerId": {
+          "maxLength": 28,
+          "description": "The customer's ID. Both registered and guest customers have a customer ID.",
+          "example": "rustin.peece",
+          "type": "string"
+        },
+        "customerNo": {
+          "maxLength": 100,
+          "description": "The customer's number.",
+          "example": "D100201",
+          "type": "string"
+        },
+        "email": {
+          "maxLength": 256,
+          "description": "The customer's email address.",
+          "example": "rustin.peece@sample-email.com",
+          "type": "string"
+        },
+        "fax": {
+          "maxLength": 32,
+          "description": "The customer's fax number The length is restricted to 32 characters.",
+          "example": "555-555-5555",
+          "type": "string"
+        },
+        "firstName": {
+          "maxLength": 256,
+          "description": "The customer's first name.",
+          "example": "Rustin",
+          "type": "string"
+        },
+        "gender": {
+          "format": "int32",
+          "description": "The customer's gender.",
+          "example": 1,
+          "enum": [
+            1,
+            2
+          ],
+          "type": "integer"
+        },
+        "jobTitle": {
+          "maxLength": 256,
+          "description": "The customer's job title.",
+          "example": "Batman",
+          "type": "string"
+        },
+        "lastLoginTime": {
+          "description": "The last login time of the customer.",
+          "example": "9999-12-31T00:00:00.0Z",
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastModified": {
+          "description": "Returns the value of attribute 'lastModified'.",
+          "example": "9999-12-31T00:00:00.0Z",
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastName": {
+          "maxLength": 256,
+          "description": "The customer's last name.",
+          "example": "Peece",
+          "type": "string"
+        },
+        "lastVisitTime": {
+          "description": "The last visit time of the customer.",
+          "example": "9999-12-31T00:00:00.0Z",
+          "type": "string",
+          "format": "date-time"
+        },
+        "phoneBusiness": {
+          "maxLength": 32,
+          "description": "The customer's business phone number.",
+          "example": "555-555-5555",
+          "type": "string"
+        },
+        "phoneHome": {
+          "maxLength": 32,
+          "description": "The customer's home phone number.",
+          "example": "555-555-5556",
+          "type": "string"
+        },
+        "phoneMobile": {
+          "maxLength": 32,
+          "description": "The customer's mobile phone number.",
+          "example": "555-555-5555",
+          "type": "string"
+        },
+        "preferredLocale": {
+          "description": "The customer's preferred locale.",
+          "example": "en_US",
+          "type": "string"
+        },
+        "previousLoginTime": {
+          "description": "The time when the customer previously logged in.",
+          "example": "9999-12-31T00:00:00.0Z",
+          "type": "string",
+          "format": "date-time"
+        },
+        "previousVisitTime": {
+          "description": "The time when the customer previously visited the store.",
+          "example": "9999-12-31T00:00:00.0Z",
+          "type": "string",
+          "format": "date-time"
+        },
+        "primaryAddress": {
+          "description": "The customers primary or default address.",
+          "$ref": "#/definitions/CustomerAddress"
+        },
+        "salutation": {
+          "maxLength": 256,
+          "description": "The customer's salutation.",
+          "example": "Mr.",
+          "type": "string"
+        },
+        "secondName": {
+          "maxLength": 256,
+          "description": "The customer's second name.",
+          "example": "Peece",
+          "type": "string"
+        },
+        "suffix": {
+          "maxLength": 256,
+          "description": "The customer's suffix (for example, \"Jr.\" or \"Sr.\").",
+          "example": "Sr.",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 256,
+          "description": "The customer's title (for example, \"Mrs\" or \"Mr\").",
+          "example": "Mr.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "customerNo",
+        "lastName"
+      ],
+      "type": "object"
+    },
+    "CustomerAddress": {
+      "description": "Any address that is associated with a customer (billing, shipping, mailing, and so on).",
+      "properties": {
+        "address1": {
+          "maxLength": 256,
+          "description": "The customer's first address.",
+          "example": "10 Presidential Way",
+          "type": "string"
+        },
+        "address2": {
+          "maxLength": 256,
+          "description": "The customer's second address value.",
+          "example": "Suite 100",
+          "type": "string"
+        },
+        "addressId": {
+          "maxLength": 256,
+          "description": "The customer address ID.",
+          "example": "Home",
+          "type": "string"
+        },
+        "city": {
+          "maxLength": 256,
+          "description": "The customer's city.",
+          "example": "Gotham",
+          "type": "string"
+        },
+        "companyName": {
+          "maxLength": 256,
+          "description": "The customer's company name.",
+          "example": "Acme",
+          "type": "string"
+        },
+        "countryCode": {
+          "pattern": "^([A-Z][A-Z])$",
+          "maxLength": 2,
+          "description": "The customer's two-character country code per ISO 3166-1 alpha-2.",
+          "example": "US",
+          "type": "string"
+        },
+        "creationDate": {
+          "description": "Returns the value of attribute 'creationDate'.",
+          "example": "9999-12-31T00:00:00.0Z",
+          "type": "string",
+          "format": "date-time"
+        },
+        "etag": {
+          "description": "The generated eTag representing the state of the customer address.",
+          "type": "string"
+        },
+        "firstName": {
+          "maxLength": 256,
+          "description": "The customer's first name.",
+          "example": "Rustin",
+          "type": "string"
+        },
+        "fullName": {
+          "description": "The concatenation of the customer's first, middle, last names, and suffix.",
+          "example": "Mr. Rustin Peece Sr.",
+          "type": "string"
+        },
+        "jobTitle": {
+          "maxLength": 256,
+          "description": "The customer's job title.",
+          "example": "Batman",
+          "type": "string"
+        },
+        "lastModified": {
+          "description": "Returns the value of attribute 'lastModified'.",
+          "example": "9999-12-31T00:00:00.0Z",
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastName": {
+          "maxLength": 256,
+          "description": "The customer's last name.",
+          "example": "Peece",
+          "type": "string"
+        },
+        "phone": {
+          "maxLength": 32,
+          "description": "The customer's phone number.",
+          "example": "555-555-5555",
+          "type": "string"
+        },
+        "postBox": {
+          "maxLength": 256,
+          "description": "The customer's post box.",
+          "example": "A-12345",
+          "type": "string"
+        },
+        "postalCode": {
+          "maxLength": 256,
+          "description": "The customer's postal code.",
+          "example": "12345",
+          "type": "string"
+        },
+        "salutation": {
+          "maxLength": 256,
+          "description": "The customer's salutation.",
+          "example": "Mr.",
+          "type": "string"
+        },
+        "secondName": {
+          "maxLength": 256,
+          "description": "The customer's second name.",
+          "example": "Peece",
+          "type": "string"
+        },
+        "stateCode": {
+          "maxLength": 256,
+          "description": "The customer's state.",
+          "example": "NC",
+          "type": "string"
+        },
+        "suffix": {
+          "maxLength": 256,
+          "description": "The customer's suffix.",
+          "example": "Sr.",
+          "type": "string"
+        },
+        "suite": {
+          "maxLength": 32,
+          "description": "The customer's suite.",
+          "example": "100",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 256,
+          "description": "The customer's title.",
+          "example": "Duke",
+          "type": "string"
+        }
+      },
+      "required": [
+        "addressId",
+        "countryCode",
+        "lastName"
+      ],
+      "type": "object"
+    },
+    "CustomerAddressResult": {
+      "description": "Result document containing an array of customer addresses.",
+      "properties": {
+        "limit": {
+          "format": "int32",
+          "description": "The number of returned documents.",
+          "example": 10,
+          "type": "integer"
+        },
+        "data": {
+          "description": "The array of customer address documents.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerAddress"
+          }
+        },
+        "offset": {
+          "minimum": 0,
+          "format": "int32",
+          "description": "The zero-based index of the first search hit to include in the result.",
+          "example": 0,
+          "type": "integer"
+        },
+        "total": {
+          "format": "int32",
+          "description": "The total number of documents.",
+          "example": 10,
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "CustomerList": {
+      "description": "Document representing a customer list.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "description": "The ID of the customer list.",
+          "example": "Site1CustomerList",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "PaginatedSearchResult": {
+      "description": "Paginated Search Result",
+      "properties": {
+        "hits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerSearchHit"
+          }
+        },
+        "query": {
+          "$ref": "#/definitions/Query"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "SearchRequest": {
+      "description": "Search Request",
+      "properties": {
+        "query": {
+          "$ref": "#/definitions/Query"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "Query": {
+      "type": "object",
+      "properties": {
+        "textQuery": {
+          "$ref": "#/definitions/TextQuery"
+        }
+      },
+      "required": [
+        "textQuery"
+      ]
+    },
+    "TextQuery": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "searchPhrase": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "fields",
+        "searchPhrase"
+      ]
+    },
+    "CustomerSearchHit": {
+      "description": "Document representing a customer search hit.",
+      "properties": {
+        "data": {
+          "description": "List of found customers.",
+          "$ref": "#/definitions/Customer"
+        },
+        "relevance": {
+          "format": "double",
+          "description": "The hit's relevance score.",
+          "example": 1,
+          "type": "number"
+        }
+      },
+      "required": [
+        "data",
+        "relevance"
+      ],
+      "type": "object"
+    },
+    "CustomerSearchResult": {
+      "description": "Document representing a customer search result.",
+      "$ref": "#/definitions/PaginatedSearchResult"
+    }
+  },
+  "paths": {
+    "/organizations/{organizationId}/customer-lists/{customerListId}/customer-search": {
+      "post": {
+        "description": "Action to search for customers in a customer list",
+        "operationId": "search",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "examples": {
+              "application/json": {
+                "result": "Can not resolve Examples/customerSearchResult.raml"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/CustomerSearchResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "$ref": "#/definitions/SearchRequest"
+            },
+            "in": "body",
+            "name": "body",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "in": "path",
+          "name": "customerListId",
+          "required": true
+        },
+        {
+          "type": "string",
+          "in": "path",
+          "name": "organizationId",
+          "required": true
+        }
+      ]
+    },
+    "/organizations/{organizationId}/customer-lists/{listId}/customers": {
+      "post": {
+        "description": "Action to create a new customer. The customer is created using the specified credentials and customer information. This action verifies the following:    - Login acceptance criteria and uniqueness.   - Mandatory customer properties.  If the action fails to create the customer, it returns a 400 fault with an appropriate message. ",
+        "operationId": "createCustomerList",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "examples": {
+              "application/json": {
+                "customers-result": "Can not resolve Examples/post-customers.raml"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "example": {
+                "body": "Can not resolve Examples/post-customer-body.raml"
+              },
+              "$ref": "#/definitions/Customer"
+            },
+            "in": "body",
+            "name": "body",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "in": "path",
+          "name": "listId",
+          "required": true
+        },
+        {
+          "type": "string",
+          "in": "path",
+          "name": "organizationId",
+          "required": true
+        }
+      ]
+    },
+    "/organizations/{organizationId}/customer-lists/{listId}/customers/{customerNo}": {
+      "delete": {
+        "description": "Deletes the customer, including all related information like the customer addresses.",
+        "operationId": "deleteCustomerFromCustomerList",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "get": {
+        "description": "Action to get customer information.",
+        "operationId": "getCustomerFromCustomerList",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "examples": {
+              "application/json": {
+                "get-customer": "Can not resolve Examples/post-customers.raml"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "Updates the customer with the specified information. The customer number is allowed to be updated but results in a CustomerNumberAlreadyInUseException if there is another customer with the same customer number existing.",
+        "operationId": "updateCustomerInCustomerList",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "examples": {
+              "application/json": {
+                "patch-example": "Can not resolve Examples/post-customers.raml"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "example": {
+                "patch-body": "Can not resolve Examples/post-customer-body.raml"
+              },
+              "$ref": "#/definitions/Customer"
+            },
+            "in": "body",
+            "name": "body",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "description": "Action to create a new customer. The customer is created using the specified customer number, credentials, and customer information. This action verifies the following:  - Login acceptance criteria and uniqueness. - Mandatory customer properties.  If the action fails to create the customer, it returns a 400 fault with an appropriate message. ",
+        "operationId": "createCustomerInCustomerList",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "examples": {
+              "application/json": {
+                "put-example": "Can not resolve Examples/post-customers.raml"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "examples": {
+              "application/json": {
+                "put-example": "Can not resolve Examples/post-customers.raml"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "example": {
+                "put-body": "Can not resolve Examples/post-customer-body.raml"
+              },
+              "$ref": "#/definitions/Customer"
+            },
+            "in": "body",
+            "name": "body",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "minLength": 1,
+          "description": "The customer number.",
+          "type": "string",
+          "in": "path",
+          "name": "customerNo",
+          "required": true
+        },
+        {
+          "type": "string",
+          "in": "path",
+          "name": "listId",
+          "required": true
+        },
+        {
+          "type": "string",
+          "in": "path",
+          "name": "organizationId",
+          "required": true
+        }
+      ]
+    },
+    "/organizations/{organizationId}/customer-lists/{listId}/customers/{customerNo}/addresses": {
+      "get": {
+        "description": "Action that returns a pageable list of all customer addresses. The default page size is 10 customer addresses.",
+        "operationId": "getAddressesForCustomerFromCustomerList",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "examples": {
+              "application/json": {
+                "address-example": "Can not resolve Examples/addresses-get.raml"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/CustomerAddressResult"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "The action creates a new customer address with the given address information.",
+        "operationId": "createAddressForCustomerInCustomerList",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "examples": {
+              "application/json": {
+                "address-example": "Can not resolve Examples/addresses-post.raml"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/CustomerAddress"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "example": {
+                "address-body": "Can not resolve Examples/addresses-body.raml"
+              },
+              "$ref": "#/definitions/CustomerAddress"
+            },
+            "in": "body",
+            "name": "body",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "minLength": 1,
+          "description": "The customer number.",
+          "type": "string",
+          "in": "path",
+          "name": "customerNo",
+          "required": true
+        },
+        {
+          "type": "string",
+          "in": "path",
+          "name": "listId",
+          "required": true
+        },
+        {
+          "type": "string",
+          "in": "path",
+          "name": "organizationId",
+          "required": true
+        }
+      ]
+    },
+    "/organizations/{organizationId}/customer-lists/{listId}/customers/{customerNo}/addresses/{addressId}": {
+      "get": {
+        "description": "Action that returns a single customer address from a customer list.",
+        "operationId": "getAddressForCustomerFromCustomerList",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "examples": {
+              "application/json": {
+                "address-example": "Can not resolve Examples/address-get.raml"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/CustomerAddress"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Action which deletes a customer address.",
+        "operationId": "removeAddressForCustomerInCustomerList",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "patch": {
+        "description": "Action which updates an address of a customer with the given address information.",
+        "operationId": "updateAddressForCustomerInCustomerList",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "examples": {
+              "application/json": {
+                "address": "Can not resolve Examples/addresses-post.raml"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/CustomerAddress"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "example": {
+                "address-body": "Can not resolve Examples/addresses-body.raml"
+              },
+              "$ref": "#/definitions/CustomerAddress"
+            },
+            "in": "body",
+            "name": "body",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "minLength": 1,
+          "description": "The address ID.",
+          "type": "string",
+          "in": "path",
+          "name": "addressId",
+          "required": true
+        },
+        {
+          "minLength": 1,
+          "description": "The customer number.",
+          "type": "string",
+          "in": "path",
+          "name": "customerNo",
+          "required": true
+        },
+        {
+          "type": "string",
+          "in": "path",
+          "name": "listId",
+          "required": true
+        },
+        {
+          "type": "string",
+          "in": "path",
+          "name": "organizationId",
+          "required": true
+        }
+      ]
+    }
+  }
+}
