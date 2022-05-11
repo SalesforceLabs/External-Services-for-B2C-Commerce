@@ -6,7 +6,7 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
     public static final String DOUBLEQUOTE = '"';
 
     // This class is dependant on this Custom Metadata Type created to hold custom parameters
-    public static final String CUSTOM_MDT_NAME = 'B2CAuth__mdt'; 
+    public static final String CUSTOM_MDT_NAME = 'extservb2c__B2CAuth__mdt'; 
     public static final String CMT_FIELD_CALLBACK_URL = 'Callback_URL__c';
     public static final String CMT_FIELD_PROVIDER_NAME = 'Auth_Provider_Name__c';
     public static final String CMT_FIELD_AUTHTOKEN_URL = 'Access_Token_URL__c';

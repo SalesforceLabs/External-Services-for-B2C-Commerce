@@ -3,9 +3,9 @@
     <actionCalls>
         <name>Search_B2C_Commerce</name>
         <label>Search B2C Commerce</label>
-        <locationX>352</locationX>
-        <locationY>528</locationY>
-        <actionName>B2CCommerceCustomer.search</actionName>
+        <locationX>176</locationX>
+        <locationY>518</locationY>
+        <actionName>extservb2c::B2CCommerceCustomer.search</actionName>
         <actionType>externalService</actionType>
         <connector>
             <targetReference>SearchResults_Loop</targetReference>
@@ -35,8 +35,8 @@
     <assignments>
         <name>SearchRequest_Assignment</name>
         <label>SearchRequest Assignment</label>
-        <locationX>352</locationX>
-        <locationY>408</locationY>
+        <locationX>176</locationX>
+        <locationY>398</locationY>
         <assignmentItems>
             <assignToReference>SearchRequest.offset</assignToReference>
             <operator>Assign</operator>
@@ -48,7 +48,7 @@
             <assignToReference>SearchRequest.z0limit</assignToReference>
             <operator>Assign</operator>
             <value>
-                <numberValue>0.0</numberValue>
+                <numberValue>10.0</numberValue>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -72,8 +72,8 @@
     <assignments>
         <name>SearchRequestData_Assignment</name>
         <label>SearchRequestData Assignment</label>
-        <locationX>352</locationX>
-        <locationY>288</locationY>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
         <assignmentItems>
             <assignToReference>Fields</assignToReference>
             <operator>Add</operator>
@@ -85,21 +85,21 @@
             <assignToReference>SearchPhrase</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>$Record.Email</elementReference>
+                <elementReference>Contact_GetRecord.Email</elementReference>
             </value>
         </assignmentItems>
         <connector>
             <targetReference>SearchRequest_Assignment</targetReference>
         </connector>
     </assignments>
-    <interviewLabel>B2C: Trigger: Find Matches {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel>B2C: Autolaunched: Find Matches {!$Flow.CurrentDateTime}</interviewLabel>
     <isTemplate>true</isTemplate>
-    <label>B2C: Trigger: Find Matches</label>
+    <label>B2C: Autolaunched: Find Matches</label>
     <loops>
         <name>SearchResults_Loop</name>
         <label>SearchResults Loop</label>
-        <locationX>352</locationX>
-        <locationY>648</locationY>
+        <locationX>176</locationX>
+        <locationY>638</locationY>
         <collectionReference>Search_B2C_Commerce.200.hits</collectionReference>
         <iterationOrder>Asc</iterationOrder>
     </loops>
@@ -122,18 +122,33 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Contact_GetRecord</name>
+        <label>Contact GetRecord</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>SearchRequestData_Assignment</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
-        <object>Contact</object>
-        <recordTriggerType>Create</recordTriggerType>
-        <scheduledPaths>
-            <connector>
-                <targetReference>SearchRequestData_Assignment</targetReference>
-            </connector>
-            <pathType>AsyncAfterCommit</pathType>
-        </scheduledPaths>
-        <triggerType>RecordAfterSave</triggerType>
+        <connector>
+            <targetReference>Contact_GetRecord</targetReference>
+        </connector>
     </start>
     <status>Active</status>
     <variables>
@@ -164,6 +179,13 @@
         </value>
     </variables>
     <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>SearchPhrase</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -172,7 +194,7 @@
     </variables>
     <variables>
         <name>SearchRequest</name>
-        <apexClass>ExternalService__B2CCommerceCustomer_SearchRequest</apexClass>
+        <apexClass>ExternalService__extservb2c__B2CCommerceCustomer_SearchRequest</apexClass>
         <dataType>Apex</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
