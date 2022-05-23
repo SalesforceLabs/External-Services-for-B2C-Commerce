@@ -7,13 +7,13 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
 
     // This class is dependant on this Custom Metadata Type created to hold custom parameters
     public static final String CUSTOM_MDT_NAME = 'extservb2c__B2CAuth__mdt'; 
-    public static final String CMT_FIELD_CALLBACK_URL = 'Callback_URL__c';
-    public static final String CMT_FIELD_PROVIDER_NAME = 'Auth_Provider_Name__c';
-    public static final String CMT_FIELD_AUTHTOKEN_URL = 'Access_Token_URL__c';
-    public static final String CMT_FIELD_CLIENT_ID = 'Client_Id__c';
-    public static final String CMT_FIELD_CLIENT_SECRET = 'Client_Secret__c';
-    public static final String CMT_FIELD_USE_JSON = 'Use_JSON_Encoding__c';
-    public static final String CMT_FIELD_SCOPE = 'Scope__c';
+    public static final String CMT_FIELD_CALLBACK_URL = 'extservb2c__Callback_URL__c';
+    public static final String CMT_FIELD_PROVIDER_NAME = 'extservb2c__Auth_Provider_Name__c';
+    public static final String CMT_FIELD_AUTHTOKEN_URL = 'extservb2c__Access_Token_URL__c';
+    public static final String CMT_FIELD_CLIENT_ID = 'extservb2c__Client_Id__c';
+    public static final String CMT_FIELD_CLIENT_SECRET = 'extservb2c__Client_Secret__c';
+    public static final String CMT_FIELD_USE_JSON = 'extservb2c__Use_JSON_Encoding__c';
+    public static final String CMT_FIELD_SCOPE = 'extservb2c__Scope__c';
 
     public static final String GRANT_TYPE_PARAM = 'grant_type';
     public static final String CLIENT_ID_PARAM = 'client_id';
