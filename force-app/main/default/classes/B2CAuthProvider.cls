@@ -6,7 +6,7 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
     public static final String DOUBLEQUOTE = '"';
 
     // This class is dependant on this Custom Metadata Type created to hold custom parameters
-    public static final String CUSTOM_MDT_NAME = 'extservb2c__B2CAuth__mdt'; 
+    public static final String CUSTOM_MDT_NAME = 'extservb2c__B2CAuth__mdt';
     public static final String CMT_FIELD_CALLBACK_URL = 'extservb2c__Callback_URL__c';
     public static final String CMT_FIELD_PROVIDER_NAME = 'extservb2c__Auth_Provider_Name__c';
     public static final String CMT_FIELD_AUTHTOKEN_URL = 'extservb2c__Access_Token_URL__c';
@@ -30,19 +30,19 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
         super();
         System.debug('Constructor called');
     }
-    
-    
+
+
     /**
         Name of custom metadata type to store this auth provider configuration fields
         This method is required by its abstract parent class.
     **/
     public String getCustomMetadataType() {
         return CUSTOM_MDT_NAME;
-    } 
-    
+    }
+
     /**
     Initiate callback. No End User authorization required in this flow so skip straight to the Token request.
-    The interface requires the callback url to be defined. 
+    The interface requires the callback url to be defined.
     Eg: https://test.salesforce.com/services/authcallback/<authprovidername>
     **/
     public PageReference initiate(Map<string,string> config, String stateToPropagate) {
@@ -53,7 +53,7 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
         pageRef.getParameters().put('code',DUMMY_CODE); // Empirically found this is required, but unused
         System.debug(pageRef.getUrl());
         return pageRef;
-    } 
+    }
 
     /**
       This method composes the callback URL automatically UNLESS it has been overridden through Configuration.
@@ -62,17 +62,17 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
     private String getCallbackUrl(Map<string,string> config) {
         // https://{salesforce-hostname}/services/authcallback/{urlsuffix}
         final String overrideUrl = config.get(CMT_FIELD_CALLBACK_URL);
-        final String generatedUrl = URL.getSalesforceBaseUrl().toExternalForm() + RESOURCE_CALLBACK + config.get('Auth_Provider_Name__c');
+        final String generatedUrl = URL.getSalesforceBaseUrl().toExternalForm() + RESOURCE_CALLBACK + config.get(CMT_FIELD_PROVIDER_NAME);
 
         return String.isEmpty(overrideUrl) ? generatedUrl : overrideUrl;
     }
-    
+
     /**
     Handle callback (from initial loop back "code" step in the flow).
     In the Client Credentials flow, this method retrieves the access token directly.
     Required by parent class.
-    Error handling here is a bit painful as the UI never displays the exception or error message 
-    supplied here.  The exception is thrown for Logging/Debugging purposes only. 
+    Error handling here is a bit painful as the UI never displays the exception or error message
+    supplied here.  The exception is thrown for Logging/Debugging purposes only.
     **/
     public Auth.AuthProviderTokenResponse handleCallback(Map<string,string> config, Auth.AuthProviderCallbackState state ) {
         System.debug('handleCallback');
@@ -85,8 +85,8 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
                                                   , response.access_token
                                                   , config.get(CMT_FIELD_CLIENT_SECRET) // No Refresh Token
                                                   , state.queryParameters.get('state'));
-    } 
-    
+    }
+
     /**
         Refresh is required by the parent class and it's used if the original Access Token has expired.
         In the Client Credentials flow, there is no Refresh token, so its implementation is exactly the
@@ -98,7 +98,7 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
         return new Auth.OAuthRefreshResult(response.access_token, response.token_type);
     }
 
-       
+
     /**
         getUserInfo is required by the Parent class, but not fully supported by this provider.
         Effectively the Client Credentials flow is only useful for Server-to-Server API integrations
@@ -124,22 +124,22 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
 
         return userData;
     }
-    
-    
+
+
     /**
        Private method that gets the Auth Token using the Client Credentials Flow.
     **/
      private TokenResponse retrieveToken(Map<String,String> config) {
-         
+
         System.debug('retrieveToken');
 
         final Boolean useJSONEncoding = Boolean.valueOf(config.get(CMT_FIELD_USE_JSON));
-        
+
         final HttpRequest req = new HttpRequest();
 
         final PageReference endpoint = new PageReference(config.get(CMT_FIELD_AUTHTOKEN_URL)); //NOSONAR -- Protected by RemoteSite Setting
         if (!useJSONEncoding) { // Including the Query String breaks JSON encoded OAuth
-            endpoint.getParameters().put('grant_type',GRANT_TYPE_CLIENT_CREDS);            
+            endpoint.getParameters().put('grant_type',GRANT_TYPE_CLIENT_CREDS);
         }
 
         // Determine whether or not to use JSON encoding
@@ -150,12 +150,12 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
         System.debug('Content-Type:' + encoding);
         //System.debug('Body:' + encodedParams);
 
-        req.setEndpoint(endpoint.getUrl()); 
-        req.setHeader('Content-Type',encoding); 
-        req.setMethod('POST'); 
+        req.setEndpoint(endpoint.getUrl());
+        req.setHeader('Content-Type',encoding);
+        req.setMethod('POST');
         req.setBody(encodedParams);
 
-        final HTTPResponse res = new Http().send(req); 
+        final HTTPResponse res = new Http().send(req);
 
         System.debug('Token Response Status: ' + res.getStatus() + ' ' + res.getStatusCode());
         final Integer statusCode = res.getStatusCode();
@@ -171,19 +171,19 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
         }
 
     }
-    
+
     //deserialise response and return token
     @testVisible
     private TokenResponse deserializeToken(String responseBody) {
-        
+
         System.debug('token response:' +responseBody);
-        
+
         // use default parsing for everything we can.
         TokenResponse parsedResponse = (TokenResponse) System.JSON.deserialize(responseBody, TokenResponse.class);
         // explicitly parse out the developer.email property because it's an illegal identifier
         Map<String,Object> props = (Map<String,Object>) System.JSON.deserializeUntyped(responseBody);
         parsedResponse.developer_email = (String) props.get('developer.email');
-       
+
         return parsedResponse;
     }
 
@@ -245,7 +245,7 @@ public with sharing class B2CAuthProvider extends Auth.AuthProviderPluginClass {
       "status" : "approved"
     }
     On failure, the following structure from Apigee Edge (cloud hosted Gateway)
-    { 
+    {
       "ErrorCode" : "invalid_client"
     , "Error" : "Client credentials are invalid"
     }

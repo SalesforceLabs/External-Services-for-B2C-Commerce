@@ -78,7 +78,7 @@
             <assignToReference>Fields</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>Email</stringValue>
+                <stringValue>email</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>

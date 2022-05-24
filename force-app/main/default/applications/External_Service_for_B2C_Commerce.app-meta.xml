@@ -11,5 +11,6 @@
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>External Service for B2C Commerce</label>
     <navType>Standard</navType>
+    <tabs>Start_External_Service_for_B2C_Commerce</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>
