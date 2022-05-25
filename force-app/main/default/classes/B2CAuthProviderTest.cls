@@ -73,7 +73,7 @@ public class B2CAuthProviderTest {
         final Map<String,String> authProviderConfiguration = setupAuthProviderConfig(); 
         final B2CAuthProvider provider = new B2CAuthProvider(); 
         
-        final PageReference expectedUrl = new PageReference(authProviderConfiguration.get('Callback_URL__c'));
+        final PageReference expectedUrl = new PageReference(authProviderConfiguration.get(B2CAuthProvider.CMT_FIELD_CALLBACK_URL));
         expectedUrl.getParameters().put('state',STATE_TO_PROPOGATE);
 
         final PageReference actualUrl = provider.initiate(authProviderConfiguration, STATE_TO_PROPOGATE); 
